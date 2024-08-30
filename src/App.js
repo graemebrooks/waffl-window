@@ -1,14 +1,15 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './pages/Home';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './styles/theme';
+import Home from './pages/home';
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        {/* Add more routes here as you create more pages */}
-      </Switch>
+      <ThemeProvider theme={theme}>
+        <Home />
+      </ThemeProvider>
     </Router>
   );
 }
