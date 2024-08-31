@@ -103,42 +103,6 @@ const TableRow = styled.tr`
   }
 `;
 
-const CustomBar = styled.div`
-  height: 40px;
-  background: ${props => `linear-gradient(135deg, ${props.color}, ${lighten(0.2, props.color)}, ${darken(0.1, props.color)})`};
-  border-radius: 8px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  opacity: 0.85;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
-    transition: 0.5s;
-  }
-
-  &:hover {
-    opacity: 1;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transform: translateY(-4px) scale(1.02);
-
-    &:before {
-      left: 100%;
-    }
-  }
-`;
 
 const StatsDashboardItem = ({ title, data }) => {
   const top5Data = data.slice(0, 5);

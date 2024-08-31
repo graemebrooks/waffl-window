@@ -38,10 +38,6 @@ const FilterInput = styled.input`
   margin-right: 1rem;
 `;
 
-const FilterSelect = styled.select`
-  padding: 0.5rem;
-`;
-
 // Mock data (replace this with API data later)
 const mockDraftData = [
   { id: 1, round: 1, pick: 1, team: 'Team A', player: 'John Doe', position: 'QB' },

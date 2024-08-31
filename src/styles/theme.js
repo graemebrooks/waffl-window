@@ -1,5 +1,3 @@
-import { rgba } from 'polished';
-
 export const theme = {
   colors: {
     background: '#13334C',  // Now used for dark text

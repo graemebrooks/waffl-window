@@ -5,12 +5,6 @@ import { FaChartLine, FaTrophy, FaHistory, FaDatabase } from 'react-icons/fa';
 import StatsDashboard from '../components/StatsDashboard';
 
 
-const DashboardGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-`;
-
 const HomeContainer = styled.div`
   min-height: 100vh;
   background-color: #FFFFFF;
@@ -64,49 +58,6 @@ const FeatureLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
-
-
-// Mock data (replace with actual data from your API later)
-const topScorersData = [
-  { name: 'Player 1', score: 120 },
-  { name: 'Player 2', score: 115 },
-  { name: 'Player 3', score: 110 },
-  { name: 'Player 4', score: 105 },
-  { name: 'Player 5', score: 100 },
-];
-
-const positionData = {
-  QB: [
-    { name: 'QB 1', score: 95 },
-    { name: 'QB 2', score: 90 },
-    { name: 'QB 3', score: 85 },
-  ],
-  RB: [
-    { name: 'RB 1', score: 88 },
-    { name: 'RB 2', score: 85 },
-    { name: 'RB 3', score: 82 },
-  ],
-  WR: [
-    { name: 'WR 1', score: 92 },
-    { name: 'WR 2', score: 89 },
-    { name: 'WR 3', score: 86 },
-  ],
-  TE: [
-    { name: 'TE 1', score: 75 },
-    { name: 'TE 2', score: 70 },
-    { name: 'TE 3', score: 65 },
-  ],
-  K: [
-    { name: 'K 1', score: 50 },
-    { name: 'K 2', score: 48 },
-    { name: 'K 3', score: 46 },
-  ],
-  DST: [
-    { name: 'DST 1', score: 60 },
-    { name: 'DST 2', score: 55 },
-    { name: 'DST 3', score: 50 },
-  ],
-};
 
 function Home() {
   return (
