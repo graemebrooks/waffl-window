@@ -16,44 +16,32 @@ const DashboardContainer = styled.div`
   }
 `;
 
+const generateAndSortRandomScores = (teams) => 
+  teams.map(team => ({ ...team, score: Math.floor(Math.random() * 101) }))
+    .sort((a, b) => b.score - a.score);
+
+const allTeams = [
+  { name: "Islanders" },
+  { name: "Ice Babies" },
+  { name: "Wenches" },
+  { name: "Cartels" },
+  { name: "Toad Lickers" },
+  { name: "Digital Rays" },
+  { name: "Beer" },
+];
+
+const positionData = {
+  QB: generateAndSortRandomScores(allTeams),
+  RB: generateAndSortRandomScores(allTeams),
+  WR: generateAndSortRandomScores(allTeams),
+  TE: generateAndSortRandomScores(allTeams),
+  K: generateAndSortRandomScores(allTeams),
+  DST: generateAndSortRandomScores(allTeams),
+};
+
+const topScorersData = generateAndSortRandomScores(allTeams);
+
 const StatsDashboard = () => {
-  // Mock data (replace with actual data from your API later)
-  const topScorersData = [
-    { name: "Islanders", score: 120 },
-    { name: "Ice Babies", score: 115 },
-  ];
-
-  const positionData = {
-    QB: [
-      { name: "Islanders", score: 95 },
-      { name: "Ice Babies", score: 90 },
-    ],
-    RB: [
-      { name: "Islanders", score: 88 },
-      { name: "Ice Babies", score: 85 },
-    ],
-    WR: [
-        { name: "Islanders", score: 88 },
-        { name: "Ice Babies", score: 85 },
-
-    ],
-    TE: [
-        { name: "Islanders", score: 88 },
-        { name: "Ice Babies", score: 85 },
-
-    ],
-    K: [
-        { name: "Islanders", score: 88 },
-        { name: "Ice Babies", score: 85 },
-
-    ],
-    DST: [
-        { name: "Islanders", score: 88 },
-        { name: "Ice Babies", score: 85 },
-
-    ],
-  };
-
   return (
     <DashboardContainer>
         <StatsDashboardItem title="Top Scorers (Last 20 Games)" data={topScorersData} />

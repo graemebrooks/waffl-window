@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { teamData } from '../data/teamData';
+import { lighten, darken } from 'polished';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -102,21 +103,71 @@ const TableRow = styled.tr`
   }
 `;
 
+const CustomBar = styled.div`
+  height: 40px;
+  background: ${props => `linear-gradient(135deg, ${props.color}, ${lighten(0.2, props.color)}, ${darken(0.1, props.color)})`};
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0.85;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: 0.5s;
+  }
+
+  &:hover {
+    opacity: 1;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px) scale(1.02);
+
+    &:before {
+      left: 100%;
+    }
+  }
+`;
+
 const StatsDashboardItem = ({ title, data }) => {
   const top5Data = data.slice(0, 5);
 
+  const getTeamColor = (teamName) => {
+    const team = teamData.find(t => t.name === teamName);
+    return team && team.colors && team.colors.primary ? team.colors.primary : '#000000';
+  };
+
+  const safeColor = (color) => {
+    return color && typeof color === 'string' ? color : '#000000';
+  };
+
   const chartData = {
-    labels: top5Data.map(item => {
-      const team = teamData.find(t => t.name === item.name);
-      return team ? team.name : item.name;
-    }),
+    labels: top5Data.map(item => item.name),
     datasets: [
       {
         label: 'Score',
         data: top5Data.map(item => item.score),
-        backgroundColor: top5Data.map(item => {
-          const team = teamData.find(t => t.name === item.name);
-          return team ? team.colors.primary : '#000000';
+        backgroundColor: top5Data.map(item => safeColor(getTeamColor(item.name))),
+        borderColor: top5Data.map(item => {
+          const color = getTeamColor(item.name);
+          return safeColor(color) !== '#000000' ? darken(0.1, color) : '#000000';
+        }),
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: top5Data.map(item => {
+          const color = getTeamColor(item.name);
+          return safeColor(color) !== '#000000' ? lighten(0.1, color) : '#000000';
         }),
       }
     ]
@@ -130,13 +181,51 @@ const StatsDashboardItem = ({ title, data }) => {
         display: false,
       },
       title: {
-        display: false,
+        display: true,
+        text: title,
+        font: {
+          size: 18,
+          weight: 'bold'
+        }
       },
+      tooltip: {
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        titleFont: {
+          size: 14
+        },
+        bodyFont: {
+          size: 12
+        },
+        padding: 10,
+        cornerRadius: 4
+      }
     },
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+          color: 'rgba(0, 0, 0, 0.1)',
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        }
+      },
+      x: {
+        grid: {
+          display: false
+        },
+        ticks: {
+          font: {
+            size: 12
+          }
+        }
       }
+    },
+    animation: {
+      duration: 2000,
+      easing: 'easeOutQuart'
     }
   };
 
